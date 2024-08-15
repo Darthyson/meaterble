@@ -17,8 +17,8 @@ def connect_devices(addresses: list) -> list:
             meater.connect()
             device_list.append(meater)
             print(f"Connected to {addr}")
-        except Exception as ex:
-            print(f"Failed to connect to {addr}. Reason: {ex}")
+        except Exception as e:
+            print(f"Failed to connect to {addr}. Error: {e}")
     return device_list
 
 
@@ -37,8 +37,8 @@ def main() -> None:
                 device.read_temperatures()
                 device.read_battery_percentage()
                 print(device)
-            except Exception as ex:
-                print(f"Failed to read from device {device}. Reason: {ex}")
+            except Exception as e:
+                print(f"Failed to read from device {device}. Error: {e}")
             time.sleep(1)
 
 
