@@ -1,20 +1,20 @@
 #!/usr/bin/python
-# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
-# Find the meater address with hcitool lescan (label MEATER).
-# run readMeater.py <address>
-# python ./readMeater.py D0:D9:4F:83:E8:EB
-
+# run readMeater.py [<address_1>] [<address_2>] [<address_3>] [..] [<address_n>]
+# e.g. python ./readMeater.py D0:D9:4F:83:E8:EB
+import asyncio
 import sys
 import time
+
+from auto_discovery import AutoDiscovery
 from meater import MeaterProbe
 
 
-def connect_devices(addresses: list) -> list:
-    device_list = []
+async def connect_devices(addresses: list[str]) -> list[MeaterProbe]:
+    device_list: list[MeaterProbe] = []
     for addr in addresses:
         try:
             meater: MeaterProbe = MeaterProbe(addr)
-            meater.connect()
+            await meater.connect()
             device_list.append(meater)
             print(f"Connected to {addr}")
         except Exception as e:
@@ -22,20 +22,39 @@ def connect_devices(addresses: list) -> list:
     return device_list
 
 
-def main() -> None:
+async def find_devices() -> list[str]:
+    device_list: list[str] = await AutoDiscovery.discover(MeaterProbe.BLTE_UUID_SERVICE_MEATER)
+    return device_list
+
+
+async def main() -> None:
+    addresses_to_connect: list[str]
     if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <address1> [<address2> ... <addressN>]")
+        print("Auto discover meaters in range")
+        addresses_to_connect = await find_devices()
+        if len(addresses_to_connect) == 0:
+            print(f"No devices in range offering service {MeaterProbe.BLTE_UUID_SERVICE_MEATER}")
+            return
+    else:
+        addresses_to_connect: list[str] = sys.argv[1:]
+
+    print(f"Devices to connect: {addresses_to_connect}")
+    meater_probes: list[MeaterProbe] = await connect_devices(addresses_to_connect)
+    if len(meater_probes) == 0:
+        print(f"Could not connect to device(s) {meater_probes}")
         return
 
-    print("Connecting...")
-    meater_probes: list = connect_devices(sys.argv[1:])
-    print("Connected to all devices")
+    print(f"Connected: {meater_probes}")
 
     while True:
         for device in meater_probes:
             try:
-                device.read_temperatures()
-                device.read_battery_percentage()
+                if not device.get_device().is_connected:
+                    print(f"Ignoring disconnected device {device.get_address()} ({device.get_device_name()})")
+                    time.sleep(1)
+                    continue
+                await device.read_temperatures()
+                await device.read_battery_percentage()
                 print(device)
             except Exception as e:
                 print(f"Failed to read from device {device}. Error: {e}")
@@ -43,4 +62,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
