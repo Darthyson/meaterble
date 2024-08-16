@@ -1,6 +1,25 @@
 #!/usr/bin/python
-# run readMeater.py [<address_1>] [<address_2>] [<address_3>] [..] [<address_n>]
-# e.g. python ./readMeater.py D0:D9:4F:83:E8:EB
+"""
+This script connects to Meater probes via Bluetooth Low Energy (BLE)
+ and reads data such as temperature and battery percentage.
+
+Usage:
+    run read_meater.py [<address_1>] [<address_2>] [<address_3>] [...] [<address_n>]
+    e.g. python ./readMeater.py D0:D9:4F:83:E8:EB
+
+Arguments:
+    <address_n> (optional): The BLE addresses of the Meater probes to connect to.
+                             If no addresses are provided, the script will attempt to autodiscover
+                             available Meater probes within range.
+
+Example:
+    To auto-discover and connect to Meater probes, simply run:
+        python read_meater.py
+
+    To connect to specific Meater probes using their addresses, run:
+        python read_meater.py D0:D9:4F:83:E8:EB D0:D9:4F:83:E8:EC
+"""
+
 import asyncio
 import sys
 import time

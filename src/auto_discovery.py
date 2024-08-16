@@ -16,6 +16,7 @@ class AutoDiscovery:
             device_list.append(device.address)
         return device_list
 
+
 if __name__ == "__main__":
     result = asyncio.run(AutoDiscovery.discover(MeaterProbe.BLTE_UUID_SERVICE_MEATER))
     print("Discovery result:", result)
