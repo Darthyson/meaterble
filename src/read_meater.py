@@ -63,8 +63,6 @@ async def main() -> None:
         print(f"Could not connect to device(s) {meater_probes}")
         return
 
-    print(f"Connected: {meater_probes}")
-
     while True:
         for device in meater_probes:
             try:
