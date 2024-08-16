@@ -79,7 +79,7 @@ class MeaterProbe:
     def get_data_age(self) -> float:
         return time.time() - self.__last_update_time
 
-    def __get_unknown(self) -> int:
+    def get_unknown(self) -> int:
         return self.__unknown
 
     def get_device(self):
@@ -147,5 +147,5 @@ class MeaterProbe:
         return "%s %s rev: %s tip: %9.04f°F/%9.04f°C ambient: %9.04f°F/%9.04f°C battery: %d%% age: %ds unknown: %d (0x%x)" % (
             self.get_address(), self.get_device_name(), self.get_firmware(), self.get_tip_fahrenheit(),
             self.get_tip_celsius(), self.get_ambient_fahrenheit(), self.get_ambient_celsius(),
-            self.get_battery_percentage(), self.get_data_age(), self.__get_unknown(), self.__get_unknown())
+            self.get_battery_percentage(), self.get_data_age(), self.get_unknown(), self.get_unknown())
 
