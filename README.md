@@ -4,12 +4,14 @@ Once the format is known, we will be able to implement an alternative receiver t
 Meater+ and the IOS/Android software.
 
 ## Status
+
 Ambient, tip, battery and IDs are all handled by the current code.
 
 ## Running
+
 Your app, block, or meater+ must be off for the probe to be seen. Each probe only allows a single low energy connection.
 
-`run.sh` can be used to scan for all local probes, and then it will run readMeater.py on each:
+`run.sh` can be used to scan for all local probes, and then it will run src/read_meater.py on each:
 
 ```
 # ./run.sh 
