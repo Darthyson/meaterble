@@ -12,29 +12,20 @@ Ambient, tip, battery and IDs are all handled by the current code.
 
 Your app, block, or meater+ must be off for the probe to be seen. Each probe only allows a single low energy connection.
 
-`run.sh` can be used to scan for all local probes, and then it will run src/read_meater.py on each:
+```
+python ./src/read_meater.py
+Auto discover meaters in range
+Devices to connect: ['D0:D9:4F:86:52:CE']
+Connected to D0:D9:4F:86:52:CE
+D0:D9:4F:86:52:CE MEATER+ rev: 04|01.06.00.83 tip:   76.3250°F/  24.6250°C ambient:   76.3250°F/  24.6250°C battery: 90% age: 0s unknown: 33 (0x21)
+D0:D9:4F:86:52:CE MEATER+ rev: 04|01.06.00.83 tip:   76.2125°F/  24.5625°C ambient:   76.2125°F/  24.5625°C battery: 90% age: 0s unknown: 33 (0x21)
+D0:D9:4F:86:52:CE MEATER+ rev: 04|01.06.00.83 tip:   76.2125°F/  24.5625°C ambient:   76.2125°F/  24.5625°C battery: 90% age: 0s unknown: 33 (0x21)
+D0:D9:4F:86:52:CE MEATER+ rev: 04|01.06.00.83 tip:   76.3250°F/  24.6250°C ambient:   76.3250°F/  24.6250°C battery: 90% age: 0s unknown: 33 (0x21)
+D0:D9:4F:86:52:CE MEATER+ rev: 04|01.06.00.83 tip:   76.3250°F/  24.6250°C ambient:   76.3250°F/  24.6250°C battery: 90% age: 0s unknown: 33 (0x21)
+D0:D9:4F:86:52:CE MEATER+ rev: 04|01.06.00.83 tip:   76.3250°F/  24.6250°C ambient:   76.3250°F/  24.6250°C battery: 90% age: 0s unknown: 33 (0x21)
+```
 
-```
-# ./run.sh 
-D0:D9:4F:86:52:CE MEATER
-D0:D9:4F:8B:57:25 MEATER
-Connecting...
-Connecting...
-Connected
-Connected
-D0:D9:4F:86:52:CE v1.0.4 probe: 0 tip: 63.837500F/17.687500C ambient: 63.837500F/17.687500C battery: 90% age: 0s
-D0:D9:4F:8B:57:25 v1.0.5 probe: 4 tip: 63.387500F/17.437500C ambient: 63.387500F/17.437500C battery: 80% age: 0s
-D0:D9:4F:86:52:CE v1.0.4 probe: 0 tip: 63.837500F/17.687500C ambient: 63.837500F/17.687500C battery: 90% age: 0s
-D0:D9:4F:8B:57:25 v1.0.5 probe: 4 tip: 63.387500F/17.437500C ambient: 63.387500F/17.437500C battery: 80% age: 0s
-D0:D9:4F:86:52:CE v1.0.4 probe: 0 tip: 63.837500F/17.687500C ambient: 63.837500F/17.687500C battery: 90% age: 0s
-D0:D9:4F:8B:57:25 v1.0.5 probe: 4 tip: 63.387500F/17.437500C ambient: 63.387500F/17.437500C battery: 80% age: 0s
-D0:D9:4F:86:52:CE v1.0.4 probe: 0 tip: 63.837500F/17.687500C ambient: 63.837500F/17.687500C battery: 90% age: 0s
-D0:D9:4F:8B:57:25 v1.0.5 probe: 4 tip: 63.387500F/17.437500C ambient: 63.387500F/17.437500C battery: 80% age: 0s
-D0:D9:4F:86:52:CE v1.0.4 probe: 0 tip: 63.837500F/17.687500C ambient: 63.837500F/17.687500C battery: 90% age: 0s
-D0:D9:4F:8B:57:25 v1.0.5 probe: 4 tip: 63.387500F/17.437500C ambient: 63.387500F/17.437500C battery: 80% age: 0s
-D0:D9:4F:86:52:CE v1.0.4 probe: 0 tip: 63.837500F/17.687500C ambient: 63.837500F/17.687500C battery: 90% age: 0s
-D0:D9:4F:8B:57:25 v1.0.5 probe: 4 tip: 63.387500F/17.437500C ambient: 63.387500F/17.437500C battery: 80% age: 0s
-```
+`run.sh` can also be used to scan for all local probes, and then it will run src/read_meater.py on each.
 
 ## BLE handles of interest (gattool handles)
 
