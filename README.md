@@ -6,14 +6,18 @@ Meater+ and the IOS/Android software.
 
 ## Status
 
-Ambient, tip, battery and IDs are all handled by the current code.
+Ambient and tip temperature, battery and IDs are all handled by the current code.
+
+## Dependencies
+
+- [bleak](https://github.com/hbldh/bleak)
 
 ## Running
 
-Your app, block, or meater+ must be off for the probe to be seen. Each probe only allows a single low energy connection.
+Your app, block, or meater+ must be off for the probe to be seen. Each probe only allows a single low energy connection.<br>
+Running: `python ./src/read_meater.py`
 
 ```
-python ./src/read_meater.py
 Auto discover meaters in range
 Devices to connect: ['D0:D9:4F:86:52:CE']
 Connected to D0:D9:4F:86:52:CE
@@ -26,6 +30,18 @@ D0:D9:4F:86:52:CE MEATER+ rev: 04|01.06.00.83 tip:   76.3250°F/  24.6250°C amb
 ```
 
 `run.sh` can also be used to scan for all local probes, and then it will run src/read_meater.py on each.
+
+## Raspberry Pi
+
+Generic ATTribute Profile (GATT) is not enabled on a Raspberry, by default.<br>
+Add following lines under `[General]` in `/etc/bluetooth/main.conf` to enable it:
+
+```
+[General]
+EnableLE = true
+AttributeServer = true
+```
+To install [bleak](https://github.com/hbldh/bleak) `sudo apt install python3-bleak`
 
 ## BLE handles of interest (gattool handles)
 
