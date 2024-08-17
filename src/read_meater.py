@@ -50,7 +50,7 @@ async def find_devices() -> list[str]:
 
 async def main() -> None:
     log_filename: str = f"meater_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-    logging.basicConfig(filename=log_filename, level=logging.INFO, format="%(message)s")
+    logging.basicConfig(filename=log_filename, level=logging.INFO, format="%(message)s", encoding='utf-8')
     logger = logging.getLogger(__name__)
 
     addresses_to_connect: list[str]
@@ -69,7 +69,7 @@ async def main() -> None:
         print(f"Could not connect to device(s) {meater_probes}")
         return
 
-    logger.info("timestamp;model;address;battery %;unknown;tip °C;ambient °C")
+    logger.info("date;time;model;address;battery %;unknown;tip °C;ambient °C")
     while True:
         for device in meater_probes:
             try:
@@ -79,7 +79,7 @@ async def main() -> None:
                     continue
                 await device.read_temperatures()
                 await device.read_battery_percentage()
-                system_time: str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                system_time: str = datetime.now().strftime("%Y-%m-%d;%H:%M:%S")
                 logger.info(f"{system_time};{device.get_device_name()};{device.get_address()};"
                             f"{device.get_battery_percentage()};{device.get_unknown()};"
                             f"{device.get_tip_celsius()};{device.get_ambient_celsius()}")
