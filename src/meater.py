@@ -144,7 +144,8 @@ class MeaterProbe:
         self.__firmware_revision = await self.__get_characteristic_str(MeaterProbe._BLTE_UUID_FIRMWARE)
 
     def __str__(self) -> str:
-        return "%s %s rev: %s tip: %9.04f°F/%9.04f°C ambient: %9.04f°F/%9.04f°C battery: %d%% age: %ds unknown: %d (0x%x)" % (
+        return ("%s %s rev: %s tip: %9.04f°F/%9.04f°C ambient: %9.04f°F/%9.04f°C"
+                " battery: %d%% age: %ds unknown: %d (0x%x)") % (
             self.get_address(), self.get_device_name(), self.get_firmware(), self.get_tip_fahrenheit(),
             self.get_tip_celsius(), self.get_ambient_fahrenheit(), self.get_ambient_celsius(),
             self.get_battery_percentage(), self.get_data_age(), self.get_unknown(), self.get_unknown())
