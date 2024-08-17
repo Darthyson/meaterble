@@ -73,7 +73,7 @@ async def main() -> None:
     while True:
         for device in meater_probes:
             try:
-                if not device.get_device().is_connected:
+                if not device.get_is_connected():
                     print(f"Ignoring disconnected device {device.get_address()} ({device.get_device_name()})")
                     time.sleep(1)
                     continue

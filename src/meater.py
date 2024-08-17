@@ -82,8 +82,8 @@ class MeaterProbe:
     def get_unknown(self) -> int:
         return self.__unknown
 
-    def get_device(self):
-        return self.__device
+    def get_is_connected(self):
+        return self.__device.is_connected
 
     async def connect(self) -> None:
         self.__device = BleakClient(self.get_address())
